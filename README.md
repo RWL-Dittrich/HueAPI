@@ -11,7 +11,7 @@ HueBridge bridge = new HueBridge("<Hue ip address>", "<Hue user string>", (optio
 
 ### Getting the lights:
 ```java
-Collection lights = bridge.getLights();
+Collection<HueLight> lights = bridge.getLights();
 ```
 
 ### Methods in a light:
