@@ -14,13 +14,19 @@ public class HueBridge {
     private ArrayList<HueLight> lights = new ArrayList<>();
     private String ip;
     private String user;
+    private int transitionSeconds;
 
     private static final String USER_AGENT = "Mozilla/5.0";
 
-    public HueBridge(String ip, String user) throws IOException {
+    public HueBridge(String ip, String user, int transitionSeconds) throws IOException {
         this.ip = ip;
         this.user = user;
+        this.transitionSeconds = transitionSeconds;
         discoverLights();
+    }
+
+    public HueBridge(String ip, String user) throws IOException {
+        this(ip, user, 1);
     }
 
 
@@ -76,7 +82,7 @@ public class HueBridge {
             //Start reading the lights (from 1)
             int counter = 1;
             while(object.has(Integer.toString(counter))) {
-                lights.add(new HueLight(counter, this));
+                lights.add(new HueLight(counter, transitionSeconds, this));
                 counter++;
             }
         } catch (JSONException e) {

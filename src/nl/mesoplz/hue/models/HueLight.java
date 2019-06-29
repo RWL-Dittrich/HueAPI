@@ -4,12 +4,14 @@ import java.awt.*;
 import java.io.IOException;
 
 public class HueLight {
-    int lightID;
-    HueBridge bridge;
+    private int lightID;
+    private HueBridge bridge;
+    private int transitionTime;
 
-    HueLight(int lightID, HueBridge bridge) {
+    HueLight(int lightID, int transitionTime ,HueBridge bridge) {
         this.lightID = lightID;
         this.bridge = bridge;
+        this.transitionTime = transitionTime;
     }
 
 
@@ -23,7 +25,22 @@ public class HueLight {
     public void setRGB(int r, int g, int b) throws IOException{
 
         double[] xy = getXYFromColor(new Color(r, g, b));
-        bridge.putCommand("{\"xy\": [" + xy[0] + ", " + xy[1] + "]}","/lights/" + lightID + "/state");
+        bridge.putCommand("{\"xy\": [" + xy[0] + ", " + xy[1] + "], \"transitiontime\": " + transitionTime + "}","/lights/" + lightID + "/state");
+
+    }
+
+    /**
+     * Sets the RGB of a light of this light with transitionTime
+     * @param r r value
+     * @param g g value
+     * @param b b value
+     * @param transitionTime time in seconds to transition
+     * @throws IOException IOException when something went wrong with the exception
+     */
+    public void setRGB(int r, int g, int b, int transitionTime) throws IOException{
+
+        double[] xy = getXYFromColor(new Color(r, g, b));
+        bridge.putCommand("{\"xy\": [" + xy[0] + ", " + xy[1] + "], \"transitiontime\": " + transitionTime + "}","/lights/" + lightID + "/state");
 
     }
 
