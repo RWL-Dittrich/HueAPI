@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class HueBridge {
 
@@ -51,6 +52,7 @@ public class HueBridge {
      */
     void putCommand(String jsonCommand, String subURL) throws IOException {
         URL url = new URL("http://" + ip + "/api/" + user + subURL);
+        System.out.println(url.toString());
         HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
         httpCon.setDoOutput(true);
         httpCon.setRequestMethod("PUT");
@@ -60,11 +62,13 @@ public class HueBridge {
         osw.flush();
         osw.close();
         os.close();  //don't forget to close the OutputStream
+        System.out.println(jsonCommand);
         httpCon.connect();
 
         //get result
         String result = readResult(httpCon);
         System.out.println(result);
+        httpCon.disconnect();
     }
 
     private void discoverLights() throws IOException{
@@ -75,19 +79,22 @@ public class HueBridge {
 
         //get result
         String result = readResult(httpCon);
-
+//        System.out.println(result);
         try {
             JSONObject object = new JSONObject(result);
 
             //Start reading the lights (from 1)
-            int counter = 1;
-            while(object.has(Integer.toString(counter))) {
-                lights.add(new HueLight(counter, transitionSeconds, this));
-                counter++;
+            Iterator<String> keys = object.keys();
+            while(keys.hasNext()) {
+                String key = keys.next();
+                if (object.get(key) instanceof JSONObject) {
+                    lights.add(new HueLight(Integer.parseInt(key), transitionSeconds, this));
+                }
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        httpCon.disconnect();
     }
 
 
