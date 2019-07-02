@@ -1,6 +1,5 @@
 package nl.mesoplz.hue.models;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -15,19 +14,19 @@ public class HueBridge {
     private ArrayList<HueLight> lights = new ArrayList<>();
     private String ip;
     private String user;
-    private int transitionSeconds;
+    private int transitionTime;
 
     private static final String USER_AGENT = "Mozilla/5.0";
 
-    public HueBridge(String ip, String user, int transitionSeconds) throws IOException {
+    public HueBridge(String ip, String user, int transitionTime) throws IOException {
         this.ip = ip;
         this.user = user;
-        this.transitionSeconds = transitionSeconds;
+        this.transitionTime = transitionTime;
         discoverLights();
     }
 
     public HueBridge(String ip, String user) throws IOException {
-        this(ip, user, 1);
+        this(ip, user, 10);
     }
 
 
@@ -88,7 +87,7 @@ public class HueBridge {
             while(keys.hasNext()) {
                 String key = keys.next();
                 if (object.get(key) instanceof JSONObject) {
-                    lights.add(new HueLight(Integer.parseInt(key), transitionSeconds, this));
+                    lights.add(new HueLight(Integer.parseInt(key), transitionTime, this));
                 }
             }
         } catch (Exception e) {
