@@ -26,21 +26,21 @@ class HueTest {
             //You can also just get a light and change stuff.
             HueLight light = lights.get(0);
             
-            //You can turn on a light with the setPower method .
+            //You can turn on a light with the setPower(powerState, (optional) transitionTime) method.
             //(The transitionTime here is overriding the transitionTime we set earlier in the huebridge).
             light.setPower(true, 20);
             
-            //You can set the transitionTime of a light with the setTransitionTime method.
+            //You can set the transitionTime of a light with the setTransitionTime(transitionTime) method.
             //This permanently changes the light's transitionTime
-            //The transitionTime is in a scale of 10 means 1 second. (It is a bit weird but it's how Philips implemented it).
+            //The transitionTime is in a scale of 10 means 1 second.
             //In this case 20 means two seconds!
             light.setTransitionTime(20);
             
-            //You can set the RGB with the setRGB method.
+            //You can set the RGB with the setRGB(R, G, B, (optional) transitionTime) method.
             //(The transitionTime here is overriding the transitionTime we set earlier in the huebridge).
             light.setRGB(255, 0, 150, 20);
             
-            //You can set the brightness of the light with the setBri method (0-254. keep in mind that 0 does not mean off!)
+            //You can set the brightness of the light with the setBri(brightness, (optional) transitionTime) method (0-254. keep in mind that 0 does not mean off!)
             //(The transitionTime here is overriding the transitionTime we set earlier in the huebridge).
             light.setBri(255, 10);
             
