@@ -17,7 +17,7 @@ class HueTest {
     {
         try {
             //Instantiating a bridge (Note that transitionTime is optional).
-            bridge = new HueBridge("<Hue ip address>", "<Hue user string>", 0);
+            bridge = new HueBridge("<Hue ip address>", "<Hue user string>", ((optional) transitionTime) 0);
 
             //The API automatically detects all the lights that the bridge has.
             //You could loop through the bridge.getLights() to change all lights.
