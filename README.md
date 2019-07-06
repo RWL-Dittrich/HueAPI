@@ -52,3 +52,9 @@ class HueTest {
 
 }
 ```
+
+# TODO:
+```
+- Test the API
+- Update README.MD
+```
