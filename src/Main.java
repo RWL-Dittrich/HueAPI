@@ -24,7 +24,7 @@ public class Main {
             while (true) {
                 for (HueLight light : bridge.getLights()) {
                     light.setBri(254);
-                    light.setRGB(255, 0, 0);
+                    light.setRGB(255, 0, 255);
                 }
                 try {
                     Thread.sleep(1000);

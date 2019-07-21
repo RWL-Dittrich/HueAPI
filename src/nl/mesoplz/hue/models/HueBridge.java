@@ -19,16 +19,14 @@ public class HueBridge {
     private String user;
     private int transitionTime;
 
-    private static final String USER_AGENT = "Mozilla/5.0";
-
-    public HueBridge(String ip, String user, int transitionTime) throws IOException, HueException {
+    public HueBridge(String ip, String user, int transitionTime) throws HueException {
         this.ip = ip;
         this.user = user;
         this.transitionTime = transitionTime;
         discoverLights();
     }
 
-    public HueBridge(String ip, String user) throws IOException, HueException {
+    public HueBridge(String ip, String user) throws HueException {
         this(ip, user, 10);
     }
 
@@ -75,7 +73,7 @@ public class HueBridge {
 
     /**
      * Discovers lights in this Hue
-     * @throws IOException when something goes wrong
+     * @throws HueException when something goes wrong
      */
     private void discoverLights() throws HueException {
         //Create the Http connection

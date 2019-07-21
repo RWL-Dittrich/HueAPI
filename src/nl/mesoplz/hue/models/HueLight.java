@@ -90,7 +90,12 @@ public class HueLight {
      * @throws IOException IOException when something went wrong with sending the command
      */
     public void setPower(boolean power, int transitionTime) throws IOException{
-        bridge.putCommand("{\"on\": " + power + ", \"transitiontime\": " + transitionTime + "}","/lights/" + lightID + "/state");
+        if (power) {
+            bridge.putCommand("{\"on\": " + true + ", \"transitiontime\": " + transitionTime + "}", "/lights/" + lightID + "/state");
+        } else {
+            bridge.putCommand("{\"on\": " + false + "}", "/lights/" + lightID + "/state");
+
+        }
     }
 
     public void setTransitionTime(int transitionTime) {
@@ -141,9 +146,9 @@ public class HueLight {
             blue = (float) (normalizedToOne[2] / 12.92);
         }
 
-        float X = (float) (red * 0.649926 + green * 0.103455 + blue * 0.197109);
-        float Y = (float) (red * 0.234327 + green * 0.743075 + blue * 0.022598);
-        float Z = (float) (red * 0.0000000 + green * 0.053077 + blue * 1.035763);
+        float X = red * 0.649926f + green * 0.103455f + blue * 0.197109f;
+        float Y = red * 0.234327f + green * 0.743075f + blue * 0.022598f;
+        float Z = red * 0.0000000f + green * 0.053077f + blue * 1.035763f;
 
         float x = X / (X + Y + Z);
         float y = Y / (X + Y + Z);
