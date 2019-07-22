@@ -80,7 +80,12 @@ public class HueLight {
      * @throws IOException IOException when something went wrong with sending the command
      */
     public void setPower(boolean power) throws IOException{
-        bridge.putCommand("{\"on\": " + power + ", \"transitiontime\": " + transitionTime + "}","/lights/" + lightID + "/state");
+        if (power) {
+            bridge.putCommand("{\"on\": " + true + ", \"transitiontime\": " + transitionTime + "}", "/lights/" + lightID + "/state");
+        } else {
+            bridge.putCommand("{\"on\": " + false + "}", "/lights/" + lightID + "/state");
+
+        }
     }
 
     /**

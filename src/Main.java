@@ -40,6 +40,22 @@ public class Main {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                for (HueLight light : bridge.getLights()) {
+                    light.setPower(false);
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                for (HueLight light : bridge.getLights()) {
+                    light.setPower(true);
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         } catch (HueException | IOException e) {
             e.printStackTrace();
