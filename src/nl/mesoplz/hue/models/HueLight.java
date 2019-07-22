@@ -29,8 +29,8 @@ public class HueLight {
         float[] HSB = Color.RGBtoHSB(r, g, b, null);
         int H = (int) (HSB[0] * 65535f);
         int S = (int) (HSB[1] * 254f);
-        bridge.putCommand("{\"hue\": " + H + ",\"sat\": " + S + ",\"transitiontime\": " + transitionTime + "}","/lights/" + lightID + "/state");
-
+        int B = (int) (HSB[2] * 254f);
+        bridge.putCommand("{\"hue\": " + H + ",\"sat\": " + S + ", \"bri\": " + B + ",\"transitiontime\": " + transitionTime + "}","/lights/" + lightID + "/state");
     }
 
     /**
@@ -48,7 +48,8 @@ public class HueLight {
         float[] HSB = Color.RGBtoHSB(r, g, b, null);
         int H = (int) (HSB[0] * 65535f);
         int S = (int) (HSB[1] * 254f);
-        bridge.putCommand("{\"hue\": " + H + ",\"sat\": " + S + ",\"transitiontime\": " + transitionTime + "}","/lights/" + lightID + "/state");
+        int B = (int) (HSB[2] * 254f);
+        bridge.putCommand("{\"hue\": " + H + ",\"sat\": " + S + ", \"bri\": " + B + ",\"transitiontime\": " + transitionTime + "}","/lights/" + lightID + "/state");
 
     }
 
