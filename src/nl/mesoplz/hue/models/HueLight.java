@@ -8,10 +8,13 @@ public class HueLight {
     private HueBridge bridge;
     private int transitionTime;
 
-    HueLight(int lightID, int transitionTime ,HueBridge bridge) {
+    private String name;
+
+    HueLight(int lightID, int transitionTime ,HueBridge bridge, String name) {
         this.lightID = lightID;
         this.bridge = bridge;
         this.transitionTime = transitionTime;
+        this.name = name;
     }
 
 
@@ -110,5 +113,14 @@ public class HueLight {
 
     public void setTransitionTime(int transitionTime) {
         this.transitionTime = transitionTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

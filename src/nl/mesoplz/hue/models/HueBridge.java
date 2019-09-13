@@ -1,5 +1,7 @@
 package nl.mesoplz.hue.models;
 
+import javafx.scene.effect.Light;
+import nl.mesoplz.hue.compare.LightComparator;
 import nl.mesoplz.hue.exceptions.BridgeNotFoundException;
 import nl.mesoplz.hue.exceptions.HueException;
 import org.json.JSONException;
@@ -10,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class HueBridge {
@@ -88,14 +91,18 @@ public class HueBridge {
             try {
                 JSONObject object = new JSONObject(result);
 
-                //Start reading the lights (from 1)
+                //Start reading the lights
                 Iterator<String> keys = object.keys();
                 while(keys.hasNext()) {
                     String key = keys.next();
                     if (object.get(key) instanceof JSONObject) {
-                        lights.add(new HueLight(Integer.parseInt(key), transitionTime, this));
+                        JSONObject lightObject = (JSONObject) object.get(key);
+                        lights.add(new HueLight(Integer.parseInt(key), transitionTime, this, lightObject.getString("name")));
                     }
                 }
+
+                //Sort the lights by name
+                lights.sort(new LightComparator());
             } catch (JSONException e) {
                 throw new HueException("Lights JSON could not be read!");
             }
