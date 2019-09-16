@@ -16,7 +16,7 @@ public class Main {
             //init loop
             for (HueLight light : bridge.getLights()) {
                 light.setPower(true);
-                light.setRGB(0, 255, 0);
+                light.setRGB(255, 0, 0);
             }
 
 

@@ -26,14 +26,7 @@ public class HueLight {
      * @throws IOException IOException when something went wrong with sending the command
      */
     public void setRGB(int r, int g, int b) throws IOException{
-        if(r > 255 || r < 0 || g > 255 || g < 0 || b > 255 || b < 0) {
-            throw new IllegalArgumentException("Value of r g or b cannot be more than 255 and less than 0");
-        }
-        float[] HSB = Color.RGBtoHSB(r, g, b, null);
-        int H = (int) (HSB[0] * 65535f);
-        int S = (int) (HSB[1] * 254f);
-        int B = (int) (HSB[2] * 254f);
-        bridge.putCommand("{\"hue\": " + H + ",\"sat\": " + S + ", \"bri\": " + B + ",\"transitiontime\": " + transitionTime + "}","/lights/" + lightID + "/state");
+        setRGB(r, g, b, transitionTime);
     }
 
     /**
@@ -62,10 +55,7 @@ public class HueLight {
      * @throws IOException IOException when something went wrong with sending the command
      */
     public void setBri(int bri) throws IOException{
-        if(bri > 254 || bri < 0) {
-            throw new IllegalArgumentException("Value of brightness cannot be more than 254 or less than 0");
-        }
-        bridge.putCommand("{\"bri\": " + bri + ", \"transitiontime\": " + transitionTime + "}","/lights/" + lightID + "/state");
+        setBri(bri, transitionTime);
     }
 
     /**
@@ -88,12 +78,7 @@ public class HueLight {
      * @throws IOException IOException when something went wrong with sending the command
      */
     public void setPower(boolean power) throws IOException{
-        if (power) {
-            bridge.putCommand("{\"on\": " + true + ", \"transitiontime\": " + transitionTime + "}", "/lights/" + lightID + "/state");
-        } else {
-            bridge.putCommand("{\"on\": " + false + "}", "/lights/" + lightID + "/state");
-
-        }
+        setPower(power, transitionTime);
     }
 
     /**
