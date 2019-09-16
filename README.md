@@ -5,7 +5,8 @@ This is gonna be used for a school project.
 # How to use?
 ### Making a Hue bridge:
 ```java
-import nl.mesoplz.hue.exceptions.HueException;import nl.mesoplz.hue.models.HueBridge;
+import nl.mesoplz.hue.exceptions.HueException;
+import nl.mesoplz.hue.models.HueBridge;
 import nl.mesoplz.hue.models.HueLight;
 
 import java.io.IOException;
